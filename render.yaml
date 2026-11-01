@@ -1,0 +1,26 @@
+services:
+  # PlacementPilot Backend Service
+  - type: web
+    name: placementpilot-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      - key: DATABASE_URL
+        fromDatabase:
+          name: placementpilot-db
+          property: connectionString
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+
+databases:
+  # Managed PostgreSQL Database
+  - name: placementpilot-db
+    databaseName: placementpilot
+    user: placementuser
+    plan: free
