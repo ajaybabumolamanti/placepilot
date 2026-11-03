@@ -6,6 +6,10 @@ from sqlalchemy.orm import sessionmaker
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "placementpilot.db")
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DB_PATH}")
 
+# Fix for PostgreSQL URL dialect compatibility (Render/Heroku/Railway supply postgres://)
+if SQLALCHEMY_DATABASE_URL and SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False} if "sqlite" in SQLALCHEMY_DATABASE_URL else {}
 )

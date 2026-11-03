@@ -55,6 +55,10 @@ frontend/.env.local
 *.swp
 *.swo
 
+# Binaries and executables
+*.exe
+cloudflared.exe
+
 # OS
 .DS_Store
 Thumbs.db
