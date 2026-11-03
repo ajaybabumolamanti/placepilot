@@ -2,6 +2,21 @@
 
 > **"Practice. Analyze. Improve. Get Placement Ready."**
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online%20(HTTPS)-brightgreen?style=for-the-badge&logo=cloudflare)](https://organizational-marked-edmonton-laden.trycloudflare.com)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/ajaybabumolamanti13-cyber/placepilot)
+[![Build Status](https://img.shields.io/badge/Build-Passing%20(25%2F25%20Routes)-success?style=for-the-badge)](https://github.com/ajaybabumolamanti13-cyber/placepilot)
+[![Next.js](https://img.shields.io/badge/Frontend-Next.js%2014-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
+
+---
+
+### 🌐 Live Public Access & Repository
+- **Live Website URL**: [https://organizational-marked-edmonton-laden.trycloudflare.com](https://organizational-marked-edmonton-laden.trycloudflare.com)
+- **GitHub Repository**: [https://github.com/ajaybabumolamanti13-cyber/placepilot](https://github.com/ajaybabumolamanti13-cyber/placepilot)
+- **API Swagger Documentation**: [https://organizational-marked-edmonton-laden.trycloudflare.com/docs](https://organizational-marked-edmonton-laden.trycloudflare.com/docs) (or `http://127.0.0.1:8000/docs` locally)
+
+---
+
 PlacementPilot AI is an enterprise-grade campus placement readiness and corporate recruitment SaaS platform. Built with **Next.js 14**, **FastAPI**, **SQLAlchemy**, and **Tailwind CSS**, it bridges the gap between engineering students (CSE, ECE, EEE, Biotech), corporate recruiters, and college placement cells.
 
 ---
@@ -135,28 +150,42 @@ The Next.js frontend will run on `http://localhost:3000`.
 
 ---
 
-## ☁️ Production Deployment
+## ☁️ Cloud & Live Production Deployment
 
-### Backend Deployment (Render / Railway)
-1. Push repository to GitHub.
-2. On [Render](https://render.com), create a **New Web Service** pointing to your repository.
-3. Select **Root Directory**: `backend`.
-4. **Build Command**: `pip install -r requirements.txt`
-5. **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-6. Add Environment Variables:
-   - `DATABASE_URL`: Your PostgreSQL connection string (or use Render PostgreSQL).
-   - `GEMINI_API_KEY`: *(Optional)* Your Google Gemini API Key.
-   - `SECRET_KEY`: Random 32-character string.
+### 1. Instant 1-Click Cloud Deployment
 
-*(Note: `render.yaml` is pre-configured in the repository for automated Infrastructure-as-Code deployment).*
+#### Frontend on Vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fajaybabumolamanti13-cyber%2Fplacepilot&project-name=placementpilot-ai&root-directory=frontend&env=BACKEND_API_URL)
 
-### Frontend Deployment (Vercel)
-1. On [Vercel](https://vercel.com), import your GitHub repository.
-2. Set **Root Directory**: `frontend`.
-3. Framework Preset: **Next.js**.
-4. Add Environment Variable:
-   - `BACKEND_API_URL`: URL of your deployed Render backend (e.g. `https://placementpilot-backend.onrender.com`).
-5. Click **Deploy**.
+1. Click the **Deploy with Vercel** button above or import `https://github.com/ajaybabumolamanti13-cyber/placepilot` into [Vercel](https://vercel.com).
+2. Set **Root Directory** to `frontend`.
+3. Set Framework Preset to **Next.js**.
+4. Configure Environment Variable:
+   - `BACKEND_API_URL`: Your backend URL (e.g., `https://placementpilot-backend.onrender.com` or your live API URL).
+5. Click **Deploy**. Vercel will build and publish your Next.js application with automatic SSL and global CDN.
+
+#### Backend on Render
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/ajaybabumolamanti13-cyber/placepilot)
+
+1. Click the **Deploy to Render** button above or create a **New Web Service** from your GitHub repo on [Render](https://render.com).
+2. Render detects `render.yaml` automatically for Infrastructure-as-Code setup, or set:
+   - **Root Directory**: `backend`
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+3. Configure Environment Variables:
+   - `DATABASE_URL`: PostgreSQL connection string (or defaults to SQLite starter data)
+   - `GEMINI_API_KEY`: *(Optional)* Your Gemini API Key for dynamic LLM generation
+   - `SECRET_KEY`: Secure secret string
+
+---
+
+### 2. Instant Live HTTPS Tunnel Deployment
+To expose the complete full-stack platform immediately on a public HTTPS URL without configuring DNS or cloud providers:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\start_services.ps1
+```
+This script starts the FastAPI backend, compiles/runs the Next.js production server, establishes a secure Cloudflare Tunnel, and prints your public HTTPS URL.
 
 ---
 
