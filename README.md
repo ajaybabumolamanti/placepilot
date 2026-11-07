@@ -2,7 +2,7 @@
 
 > **"Practice. Analyze. Improve. Get Placement Ready."**
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online%20(HTTPS)-brightgreen?style=for-the-badge&logo=cloudflare)](https://organizational-marked-edmonton-laden.trycloudflare.com)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Production%20Live-black?style=for-the-badge&logo=vercel)](https://frontend-theta-rose-87.vercel.app)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/ajaybabumolamanti13-cyber/placepilot)
 [![Build Status](https://img.shields.io/badge/Build-Passing%20(25%2F25%20Routes)-success?style=for-the-badge)](https://github.com/ajaybabumolamanti13-cyber/placepilot)
 [![Next.js](https://img.shields.io/badge/Frontend-Next.js%2014-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
@@ -11,9 +11,10 @@
 ---
 
 ### 🌐 Live Public Access & Repository
-- **Live Website URL**: [https://organizational-marked-edmonton-laden.trycloudflare.com](https://organizational-marked-edmonton-laden.trycloudflare.com)
+- **Vercel Frontend Live URL**: [https://frontend-theta-rose-87.vercel.app](https://frontend-theta-rose-87.vercel.app)
 - **GitHub Repository**: [https://github.com/ajaybabumolamanti13-cyber/placepilot](https://github.com/ajaybabumolamanti13-cyber/placepilot)
-- **API Swagger Documentation**: [https://organizational-marked-edmonton-laden.trycloudflare.com/docs](https://organizational-marked-edmonton-laden.trycloudflare.com/docs) (or `http://127.0.0.1:8000/docs` locally)
+- **Render Backend Blueprint**: Pre-configured in [render.yaml](file:///c:/Users/M%20AJAY%20BABU/Desktop/placementpilot-ai/render.yaml) (`https://placementpilot-backend.onrender.com`)
+- **API Health Check**: `/health` (Database ping + latency metrics)
 
 ---
 
