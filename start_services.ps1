@@ -46,7 +46,7 @@ $tunnelLog = "$workspace\tunnel.log"
 if (Test-Path $tunnelLog) { Remove-Item $tunnelLog -Force }
 
 $pTunnel = Start-Process -FilePath "$workspace\cloudflared.exe" `
-    -ArgumentList "tunnel", "--url", "http://localhost:3000" `
+    -ArgumentList "tunnel", "--protocol", "http2", "--url", "http://127.0.0.1:3000" `
     -RedirectStandardError $tunnelLog `
     -WindowStyle Hidden -PassThru
 
@@ -66,3 +66,4 @@ for ($j = 0; $j -lt 20; $j++) {
 }
 
 Write-Output "LIVE_URL: $liveUrl"
+

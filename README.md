@@ -164,18 +164,20 @@ The Next.js frontend will run on `http://localhost:3000`.
    - `BACKEND_API_URL`: Your backend URL (e.g., `https://placementpilot-backend.onrender.com` or your live API URL).
 5. Click **Deploy**. Vercel will build and publish your Next.js application with automatic SSL and global CDN.
 
-#### Backend on Render
+#### Backend on Render (24/7 Always-On)
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/ajaybabumolamanti13-cyber/placepilot)
 
 1. Click the **Deploy to Render** button above or create a **New Web Service** from your GitHub repo on [Render](https://render.com).
-2. Render detects `render.yaml` automatically for Infrastructure-as-Code setup, or set:
+2. Render detects `render.yaml` automatically for Infrastructure-as-Code setup:
    - **Root Directory**: `backend`
    - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2`
+   - **Health Check Path**: `/health`
 3. Configure Environment Variables:
-   - `DATABASE_URL`: PostgreSQL connection string (or defaults to SQLite starter data)
-   - `GEMINI_API_KEY`: *(Optional)* Your Gemini API Key for dynamic LLM generation
-   - `SECRET_KEY`: Secure secret string
+   - `DATABASE_URL`: Your permanent PostgreSQL connection string (e.g. from Render PostgreSQL, Supabase, or Neon.tech).
+   - `GEMINI_API_KEY`: *(Optional)* Your Google Gemini API Key for dynamic LLM generation.
+   - `SECRET_KEY`: Random 32-character string.
+4. **24/7 Uptime Notice**: To prevent Render from going to sleep after 15 minutes of inactivity (free-tier spin down), select Render's **Starter Plan ($7/mo)** for continuous 24/7 always-on hosting.
 
 ---
 

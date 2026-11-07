@@ -1,4 +1,5 @@
 import './globals.css';
+import '@/lib/api';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import DemoBanner from '@/components/DemoBanner';

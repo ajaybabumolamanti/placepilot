@@ -1,5 +1,6 @@
 import os
 import json
+import time
 import datetime
 from typing import List, Dict, Any, Optional
 from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, status, Query
@@ -7,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 
-from app.database import engine, Base, get_db
+from app.database import engine, Base, get_db, check_db_health
 from app.models import (
     User, Department, Company, Question, Attempt, 
     InterviewSession, Resume, CodingSubmission, GuidanceVideo,
@@ -32,9 +33,6 @@ from app.services.ai_service import (
 from app.services.resume_parser import parse_resume_text, extract_text_from_pdf
 from app.seed_data import seed_database
 
-# Initialize database schema
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(
     title="PLACEMENTPILOT AI PLATFORM API",
     description="Comprehensive End-to-End Placement Preparation, Assessment, Recruiter, and Analytics Engine",
@@ -55,8 +53,40 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup_event():
-    db = next(get_db())
-    seed_database(db)
+    # Resilient database connection and migration with retry mechanism
+    max_retries = 3
+    for attempt in range(1, max_retries + 1):
+        try:
+            Base.metadata.create_all(bind=engine)
+            db = next(get_db())
+            seed_database(db)
+            print("[Startup] Database initialized and seeded successfully.")
+            break
+        except Exception as e:
+            print(f"[Startup Warning] Database initialization attempt {attempt}/{max_retries} failed: {e}")
+            if attempt < max_retries:
+                time.sleep(2)
+
+@app.on_event("shutdown")
+def shutdown_event():
+    try:
+        engine.dispose()
+        print("[Shutdown] Database engine connections disposed gracefully.")
+    except Exception as e:
+        print(f"[Shutdown Warning] Error disposing engine connections: {e}")
+
+@app.get("/health")
+def health_check():
+    db_health = check_db_health()
+    is_healthy = db_health.get("status") == "connected"
+    return {
+        "status": "healthy" if is_healthy else "degraded",
+        "app": "PLACEMENTPILOT AI",
+        "version": "2.0.0",
+        "uptime": "24/7 Production Ready",
+        "database": db_health,
+        "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
+    }
 
 @app.get("/")
 def read_root():

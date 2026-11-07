@@ -30,8 +30,14 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
+# Python venv lib
+env/lib/
+env/lib64/
+venv/lib/
+venv/lib64/
+.venv/lib/
+.venv/lib64/
+!frontend/lib/
 parts/
 sdist/
 var/
